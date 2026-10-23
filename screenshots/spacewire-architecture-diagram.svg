@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bgArchSpw" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="100%" stop-color="#0e1526"/>
+    </linearGradient>
+    <linearGradient id="cyanGoldArch" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgArchSpw)"/>
+
+  <!-- Title -->
+  <text x="600" y="55" fill="url(#cyanGoldArch)" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle">SpaceWire (ECSS-E-ST-50-12C) &amp; RMAP (ECSS-E-ST-50-52C) Architecture</text>
+  <text x="600" y="80" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="middle">Spacecraft Onboard High-Speed Serial Network &amp; Remote Memory Access Protocol</text>
+
+  <!-- Network Topology Diagram -->
+  <g transform="translate(50, 110)">
+    <rect width="1100" height="280" rx="10" fill="rgba(12, 18, 34, 0.7)" stroke="rgba(0, 229, 255, 0.25)"/>
+    <text x="25" y="30" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">SPACECRAFT ONBOARD NETWORK ROUTING TOPOLOGY (WORMHOLE ROUTING)</text>
+
+    <!-- OBC -->
+    <rect x="50" y="70" width="180" height="150" rx="8" fill="#080e1c" stroke="#ffd700" stroke-width="1.5"/>
+    <text x="140" y="100" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" text-anchor="middle">ON-BOARD COMPUTER</text>
+    <text x="140" y="125" fill="#f0f4f8" font-family="sans-serif" font-size="11" text-anchor="middle">OBC Master (Initiator)</text>
+    <rect x="70" y="150" width="140" height="25" rx="4" fill="rgba(255, 215, 0, 0.15)"/>
+    <text x="140" y="167" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Logical Addr: 0x20</text>
+
+    <!-- SpaceWire Router -->
+    <rect x="420" y="80" width="260" height="130" rx="8" fill="#080e1c" stroke="#00e5ff" stroke-width="2"/>
+    <text x="550" y="115" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" text-anchor="middle">SPACEWIRE ROUTER (8-PORT)</text>
+    <text x="550" y="140" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Deterministic Wormhole Routing</text>
+    <text x="550" y="160" fill="#00e676" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Credit Watchdog &amp; EEP Flush</text>
+
+    <!-- Science Payload / Solid State Recorder -->
+    <rect x="870" y="70" width="180" height="150" rx="8" fill="#080e1c" stroke="#2979ff" stroke-width="1.5"/>
+    <text x="960" y="100" fill="#2979ff" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" text-anchor="middle">MASS MEMORY RECORDER</text>
+    <text x="960" y="125" fill="#f0f4f8" font-family="sans-serif" font-size="11" text-anchor="middle">RMAP Target (0xFE)</text>
+    <rect x="890" y="150" width="140" height="25" rx="4" fill="rgba(41, 121, 255, 0.15)"/>
+    <text x="960" y="167" fill="#2979ff" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Addr: 0x40000000</text>
+
+    <!-- Connecting Link lines -->
+    <!-- OBC to Router -->
+    <line x1="230" y1="145" x2="420" y2="145" stroke="#00e5ff" stroke-width="3"/>
+    <text x="325" y="135" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">100 Mbps LVDS (D/S)</text>
+    <text x="325" y="165" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">FCT Credit Flow Control</text>
+
+    <!-- Router to SSR -->
+    <line x1="680" y1="145" x2="870" y2="145" stroke="#00e5ff" stroke-width="3"/>
+    <text x="775" y="135" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">100 Mbps LVDS (D/S)</text>
+    <text x="775" y="165" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">RMAP Packets + EOP</text>
+  </g>
+
+  <!-- Protocol Layer & Token Breakdown -->
+  <g transform="translate(50, 420)">
+    <rect width="1100" height="340" rx="10" fill="rgba(12, 18, 34, 0.7)" stroke="rgba(255, 215, 0, 0.25)"/>
+    <text x="25" y="30" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold">CHARACTER LAYER TOKENS &amp; RMAP PACKET PROTOCOL SPECIFICATION</text>
+
+    <!-- Character Encoding Block -->
+    <g transform="translate(25, 55)">
+      <!-- Data Char -->
+      <rect x="0" y="0" width="510" height="50" fill="rgba(0, 229, 255, 0.15)" stroke="#00e5ff"/>
+      <text x="255" y="23" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">DATA CHARACTER (10 BITS): [PARITY (1b)] [CONTROL=0 (1b)] [DATA BITS (8b)]</text>
+      <text x="255" y="40" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Odd parity enforced over all 10 bits | 8-bit data payload byte</text>
+
+      <!-- Control Char -->
+      <rect x="540" y="0" width="510" height="50" fill="rgba(255, 215, 0, 0.15)" stroke="#ffd700"/>
+      <text x="795" y="23" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">CONTROL CHARACTER (4 BITS): [PARITY (1b)] [CONTROL=1 (1b)] [CODE (2b)]</text>
+      <text x="795" y="40" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Codes: FCT (00b), EOP (01b), EEP (10b), ESC (11b) | Odd parity over 4 bits</text>
+    </g>
+
+    <!-- RMAP Packet Block -->
+    <g transform="translate(25, 125)">
+      <rect x="0" y="0" width="160" height="50" fill="rgba(0, 229, 255, 0.2)" stroke="#00e5ff"/>
+      <text x="80" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">TARGET LOGICAL (1B)</text>
+      <text x="80" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Addr: 0xFE</text>
+
+      <rect x="160" y="0" width="140" height="50" fill="rgba(255, 215, 0, 0.2)" stroke="#ffd700"/>
+      <text x="230" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">PROTOCOL ID (1B)</text>
+      <text x="230" y="38" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">0x01 (RMAP)</text>
+
+      <rect x="300" y="0" width="150" height="50" fill="rgba(41, 121, 255, 0.2)" stroke="#2979ff"/>
+      <text x="375" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">INSTRUCTION (1B)</text>
+      <text x="375" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Write/Read/Verify/Inc</text>
+
+      <rect x="450" y="0" width="110" height="50" fill="rgba(255, 215, 0, 0.2)" stroke="#ffd700"/>
+      <text x="505" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">KEY (1B)</text>
+      <text x="505" y="38" fill="#ffd700" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Auth Key (0x55)</text>
+
+      <rect x="560" y="0" width="200" height="50" fill="rgba(0, 229, 255, 0.2)" stroke="#00e5ff"/>
+      <text x="660" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">32b ADDRESS &amp; LEN</text>
+      <text x="660" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">4B Addr + 3B Data Len</text>
+
+      <rect x="760" y="0" width="100" height="50" fill="rgba(0, 230, 118, 0.25)" stroke="#00e676"/>
+      <text x="810" y="23" fill="#00e676" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">HDR CRC (1B)</text>
+      <text x="810" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">CRC-8 (0x07)</text>
+
+      <rect x="860" y="0" width="130" height="50" fill="rgba(179, 136, 255, 0.2)" stroke="#b388ff"/>
+      <text x="925" y="23" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">DATA + CRC (N+1)</text>
+      <text x="925" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Payload + Data CRC</text>
+
+      <rect x="990" y="0" width="60" height="50" fill="rgba(213, 0, 249, 0.25)" stroke="#d500f9"/>
+      <text x="1020" y="23" fill="#d500f9" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">EOP</text>
+      <text x="1020" y="38" fill="#8393a8" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">0x01</text>
+    </g>
+
+    <!-- Architecture Callout -->
+    <rect x="25" y="195" width="1050" height="120" rx="8" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="45" y="225" fill="#00e5ff" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">KEY PROTOCOL GUARANTEES &amp; FORMULAS:</text>
+    <text x="45" y="250" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="11">1. CRC-8 Polynomial: <tspan fill="#00e676">P(x) = x^8 + x^2 + x + 1 (0x07)</tspan> — Independent Header and Data validation</text>
+    <text x="45" y="275" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="11">2. Credit Flow Control: <tspan fill="#ffd700">1 FCT = 8 Data Characters (Credit limit: 56)</tspan> — Zero buffer overflow guarantee</text>
+    <text x="45" y="300" fill="#f0f4f8" font-family="'JetBrains Mono', monospace" font-size="11">3. Wormhole Routing: Destination byte stripped at router ingress | Packet terminated by <tspan fill="#d500f9">EOP</tspan> or flushed on <tspan fill="#ff1744">EEP</tspan></text>
+  </g>
+</svg>
